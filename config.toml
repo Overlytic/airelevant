@@ -1,4 +1,5 @@
-baseurl = "https://username.github.io"
+baseurl = "https://nifty-goldberg-1e6e5b.netlify.com/"
+#baseurl = "https://overlytic.github.io"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
 title = "A.I.relevant"
