@@ -1,0 +1,149 @@
+---
+title: "Clustering Pokemon"
+author: "Overlytic"
+date: "10 March 2019"
+output: md_document
+---
+
+
+
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## -- Attaching packages --------------------------------------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
+<pre><code>## v ggplot2 3.0.0     v purrr   0.2.5
+## v tibble  1.4.2     v dplyr   0.7.6
+## v tidyr   0.8.1     v stringr 1.3.1
+## v readr   1.1.1     v forcats 0.3.0</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.1</code></pre>
+<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 3.5.1</code></pre>
+<pre><code>## Warning: package &#39;purrr&#39; was built under R version 3.5.1</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.5.1</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------------------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<p>Unsupervised learning …</p>
+<div id="k-means-clustering" class="section level2">
+<h2>K Means Clustering</h2>
+<pre class="r"><code>data1 &lt;- read_csv(&quot;../../data/kmeans_ex1.csv&quot;, col_types = cols())
+
+plot(data1, main = &quot;Example1: Data with 2 clusters&quot;, 
+     xlab = &quot;&quot;, ylab = &quot;&quot;, 
+     type = &quot;p&quot;, pch = 19)</code></pre>
+<p><img src="/post/2019-03-11-Clustering-Pokemon_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>data1_km &lt;-  kmeans(data1, centers = 2, nstart = 20)
+
+plot(data1, col = data1_km$cluster, 
+     main = &quot;Example 1.1: K-means Output&quot;, 
+     type = &quot;p&quot;, pch = 19)</code></pre>
+<p><img src="/post/2019-03-11-Clustering-Pokemon_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>data2 &lt;- read_csv(&quot;../../data/kmeans_ex2.csv&quot;, col_types = cols())
+
+plot(data2, main = &quot;Example2: Data with 3 clusters&quot;, 
+     xlab = &quot;&quot;, ylab = &quot;&quot;, 
+     type = &quot;p&quot;, pch = 19)</code></pre>
+<p><img src="/post/2019-03-11-Clustering-Pokemon_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>data2_km &lt;-  kmeans(data2, centers = 3, nstart = 20)
+
+plot(data2, col = data2_km$cluster, 
+     main = &quot;Example 2.1: K-means Output&quot;, 
+     xlab = &quot;&quot;, ylab = &quot;&quot;, 
+     type = &quot;p&quot;, pch = 19)</code></pre>
+<p><img src="/post/2019-03-11-Clustering-Pokemon_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>par(mfrow = c(2, 3))
+
+set.seed(1)
+
+for (i in 1:6) {
+  
+  model &lt;-  kmeans(data2, centers = 3, nstart = 1, algorithm = &quot;Forgy&quot;)
+  
+  mytitles &lt;- paste0(&quot;WCSS: &quot;, round(model$tot.withinss,4))
+  
+  plot(data2, col = model$cluster, 
+     main = mytitles, 
+     xlab = &quot;&quot;, ylab = &quot;&quot;, 
+     type = &quot;p&quot;, pch = 19)
+  
+}</code></pre>
+<p><img src="/post/2019-03-11-Clustering-Pokemon_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>n &lt;- 10
+wcss &lt;- vector(mode = &quot;numeric&quot;, length = n)
+
+for (i in 1:n) {
+  
+  model &lt;- kmeans(data2, centers = i, nstart = 20)
+  wcss[i] &lt;- model$tot.withinss
+  
+}
+
+
+plot(wcss, type = &quot;b&quot;, 
+     main = &quot;Example 2.2: Scree Plot&quot;, 
+     xlab = &quot;Number of Clusters&quot;,
+     ylab = &quot;WCSS&quot;,
+     pch = 19)</code></pre>
+<p><img src="/post/2019-03-11-Clustering-Pokemon_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="clustering-pokemon" class="section level2">
+<h2>Clustering Pokemon</h2>
+<pre class="r"><code>pokemon_raw &lt;- read_csv(&quot;../../data/Pokemon.csv&quot;, col_types = cols()) # https://www.kaggle.com/abcsds/pokemon
+
+library(stringr)
+
+# Rename Raw Columns
+pokemon_raw &lt;- pokemon_raw %&gt;% 
+    rename(Type1 = `Type 1`,
+           Type2 = `Type 2`,
+           SpecialAttack = `Sp. Atk`,
+           SpecialDefense = `Sp. Def`)
+
+# Create K-means dataset
+
+pokemon &lt;- pokemon_raw %&gt;% 
+  select(HP:Speed)
+
+pokemon %&gt;% 
+  head()</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##      HP Attack Defense SpecialAttack SpecialDefense Speed
+##   &lt;int&gt;  &lt;int&gt;   &lt;int&gt;         &lt;int&gt;          &lt;int&gt; &lt;int&gt;
+## 1    45     49      49            65             65    45
+## 2    60     62      63            80             80    60
+## 3    80     82      83           100            100    80
+## 4    80    100     123           122            120    80
+## 5    39     52      43            60             50    65
+## 6    58     64      58            80             65    80</code></pre>
+<pre class="r"><code>pokemon %&gt;% 
+  summary()</code></pre>
+<pre><code>##        HP             Attack       Defense       SpecialAttack   
+##  Min.   :  1.00   Min.   :  5   Min.   :  5.00   Min.   : 10.00  
+##  1st Qu.: 50.00   1st Qu.: 55   1st Qu.: 50.00   1st Qu.: 49.75  
+##  Median : 65.00   Median : 75   Median : 70.00   Median : 65.00  
+##  Mean   : 69.26   Mean   : 79   Mean   : 73.84   Mean   : 72.82  
+##  3rd Qu.: 80.00   3rd Qu.:100   3rd Qu.: 90.00   3rd Qu.: 95.00  
+##  Max.   :255.00   Max.   :190   Max.   :230.00   Max.   :194.00  
+##  SpecialDefense      Speed       
+##  Min.   : 20.0   Min.   :  5.00  
+##  1st Qu.: 50.0   1st Qu.: 45.00  
+##  Median : 70.0   Median : 65.00  
+##  Mean   : 71.9   Mean   : 68.28  
+##  3rd Qu.: 90.0   3rd Qu.: 90.00  
+##  Max.   :230.0   Max.   :180.00</code></pre>
+<pre class="r"><code>n &lt;- 15
+pokemon_wcss &lt;- vector(mode = &quot;numeric&quot;, n) 
+
+for (i in 1:n) {
+  
+  model &lt;- kmeans(pokemon, centers = i, iter.max = 50, nstart = 20)
+
+  pokemon_wcss[i] &lt;- model$tot.withinss
+  
+}
+
+plot(pokemon_wcss,
+     main = &quot;Pokemon: Scree Plot&quot;,
+     type = &quot;b&quot;,
+     xlab = &quot;Number of Clusters&quot;,
+     ylab = &quot;WCSS&quot;,
+     pch = 19)</code></pre>
+<p><img src="/post/2019-03-11-Clustering-Pokemon_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>

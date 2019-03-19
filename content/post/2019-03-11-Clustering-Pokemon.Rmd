@@ -1,0 +1,200 @@
+---
+title: "Clustering Pokemon"
+author: "Overlytic"
+date: "11 March 2019"
+output: md_document
+---
+
+```{r setup}
+
+library(tidyverse)
+
+datapath <- "../../data"
+
+```
+
+The first algorithm I will be investigating is the famous K-means clustering algorithm. First we will discuss where clustering algorithms fit into the broader Machine Learning landscape. Then we will apply it to simple simulated datasets to get a intuition for it. Finally we will use it on a more exciting dataset - namely to cluster pokemon into different types!
+
+## Types of Machine Learning
+
+Broadly speaking the machine learning world can be divided up into 3 main branches:
+
+* Supervised Learning
+* Unsupervised Learning
+* Reinforcement Learning
+
+### Supervised Learning
+
+Supervised Learning algorithms are used when you have labelled datasets. In other words - you know what the answer should be. The goal is to use the input data to get to the desired answer, but in a way that also works well with new data. 
+
+The main types of supervised learning algoritms are:
+* Classification Problems: The desired answer is a category (e.g. ) 
+* Regression Problems:
+If your desired answer is category then a number then it is called regression problem, while if it is a category then it is called classification problem. 
+
+### Unsupervised Learning
+
+Unsupervised learning algorithms on the other hand are tools that help you find structure in unlabelled datasets. In otherwords, you don't know what the answer should be. The main types of unsupervised learning algorithms are:
+* Clustering algorithms: 
+* Association algorithms: 
+
+The K-means clustering algorithm that we will be discussing is an example of this. 
+
+### Reinforcement Learning
+
+
+
+## K-means Clustering
+
+```{r}
+
+data1 <- read_csv(paste0(datapath, "kmeans_ex1.csv"), col_types = cols())
+
+plot(data1, main = "Example1: Data with 2 clusters", 
+     xlab = "", ylab = "", 
+     type = "p", pch = 19)
+
+```
+
+```{r}
+
+data1_km <-  kmeans(data1, centers = 2, nstart = 20)
+
+plot(data1, col = data1_km$cluster, 
+     main = "Example 1.1: K-means Output", 
+     type = "p", pch = 19)
+
+```
+
+
+```{r}
+
+data2 <- read_csv("../../data/kmeans_ex2.csv", col_types = cols())
+
+plot(data2, main = "Example2: Data with 3 clusters", 
+     xlab = "", ylab = "", 
+     type = "p", pch = 19)
+
+```
+
+
+```{r}
+
+data2_km <-  kmeans(data2, centers = 3, nstart = 20)
+
+plot(data2, col = data2_km$cluster, 
+     main = "Example 2.1: K-means Output", 
+     xlab = "", ylab = "", 
+     type = "p", pch = 19)
+
+
+```
+
+```{r}
+
+par(mfrow = c(2, 3))
+
+set.seed(1)
+
+for (i in 1:6) {
+  
+  model <-  kmeans(data2, centers = 3, nstart = 1, algorithm = "Forgy")
+  
+  mytitles <- paste0("WCSS: ", round(model$tot.withinss,4))
+  
+  plot(data2, col = model$cluster, 
+     main = mytitles, 
+     xlab = "", ylab = "", 
+     type = "p", pch = 19)
+  
+}
+
+```
+
+```{r}
+
+n <- 10
+wcss <- vector(mode = "numeric", length = n)
+
+for (i in 1:n) {
+  
+  model <- kmeans(data2, centers = i, nstart = 20)
+  wcss[i] <- model$tot.withinss
+  
+}
+
+
+plot(wcss, type = "b", 
+     main = "Example 2.2: Scree Plot", 
+     xlab = "Number of Clusters",
+     ylab = "WCSS",
+     pch = 19)
+
+```
+
+## Clustering Pokemon
+
+```{r}
+
+pokemon_raw <- read_csv("../../data/Pokemon.csv", col_types = cols()) # https://www.kaggle.com/abcsds/pokemon
+
+library(stringr)
+
+# Rename Raw Columns
+pokemon_raw <- pokemon_raw %>% 
+    rename(Type1 = `Type 1`,
+           Type2 = `Type 2`,
+           SpecialAttack = `Sp. Atk`,
+           SpecialDefense = `Sp. Def`)
+
+# Create K-means dataset
+
+pokemon <- pokemon_raw %>% 
+  select(HP:Speed)
+
+pokemon %>% 
+  head()
+
+```
+
+
+```{r}
+
+pokemon %>% 
+  summary()
+
+```
+
+
+```{r}
+
+n <- 15
+pokemon_wcss <- vector(mode = "numeric", n) 
+
+for (i in 1:n) {
+  
+  model <- kmeans(pokemon, centers = i, iter.max = 50, nstart = 20)
+
+  pokemon_wcss[i] <- model$tot.withinss
+  
+}
+
+plot(pokemon_wcss,
+     main = "Pokemon: Scree Plot",
+     type = "b",
+     xlab = "Number of Clusters",
+     ylab = "WCSS",
+     pch = 19)
+
+```
+
+The judgement of how many clusters to use is subjective. It often makes more sense to 
+
+```{r}
+
+  pokemon_cluster <-  kmeans(pokemon, centers = 8, iter.max = 50, nstart = 20)
+
+  plot(pokemon, col = pokemon_cluster$cluster)
+
+```
+
