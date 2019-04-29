@@ -18,7 +18,7 @@
       <pubDate>Sun, 28 Apr 2019 00:00:00 +0000</pubDate>
       <author>surfsafetynet@gmail.com (Overlytic)</author>
       <guid>/post/popular_anime/</guid>
-      <description>As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blogpost. I will be using the R programming language and the excellent series of packages called the tidyverse.
+      <description>As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blog post. I will be using the R programming language and the excellent series of packages called the tidyverse.
 This week’s tidy tuesday dataset is about anime, and comes from MyAnimeList.net. I find this especially exciting since I have enjoyed quite a bit of anime in my life - much to the dismay of my girlfriend.</description>
     </item>
     

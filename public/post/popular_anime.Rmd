@@ -10,9 +10,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ```
 
-As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blogpost. I will be using the R programming language and the excellent series of packages called the tidyverse.
+As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blog post. I will be using the R programming language and the excellent series of packages called the tidyverse.
 
-This week's tidy tuesday dataset is about anime, and comes from MyAnimeList.net. I find this especially exciting since I have  enjoyed quite a bit of anime in my life - much to the dismay of my girlfriend. However I am sure I will be able to find an anime series to win her over - at least to some extent! Hopefully this dataset wil be able to help! At the very least I should be able to see where my favourite series rank.
+This week's tidy tuesday dataset is about anime, and comes from MyAnimeList.net. I find this especially exciting since I have  enjoyed quite a bit of anime in my life - much to the dismay of my girlfriend. However I am sure I will be able to find an anime series to win her over - at least to some extent! Hopefully this dataset will be able to help! At the very least I should be able to see where my favourite series rank.
 
 ## Loading the Data
 
@@ -63,7 +63,7 @@ if (!(file.exists(data_path))) {
 
 ```
 
-Next I do some basic data cleaning. I prefer the english_title given for each anime, but unfortunately it is not always available. So I create a new title column that uses it when possible.
+Next I do some basic data cleaning. I prefer the `english_title` given for each anime, but unfortunately it is not always available. So I create a new title column that uses it when possible.
 
 ```{r}
 
@@ -91,6 +91,8 @@ tidy_anime %>%
   knitr::kable()
 
 ```
+
+<br/><br/>
 
 The anime's ranks and scores are duplicated for every genre.  This is because the dataset is in a long tidy format, with every column representing a variable and every row an observation.
 
@@ -128,7 +130,7 @@ img <- readPNG(here("content/post/images", "elon_musk_twitter_ed_elric.PNG"))
 grid.raster(img)
 ```
 
-However some anime have been listed multiple times (e.g. Gintama). This seems to be caused by the different seasons having separate ratings.
+One issue I do see with the graph is that some anime have been listed multiple times (e.g. Gintama). This seems to be caused by the different seasons having separate ratings.
 
 To identify and link different seasons of anime could become a bit tricky, so we won't focus on it at this stage.
 
@@ -155,7 +157,7 @@ Death Note and Attack on Titan are clear winners, and both were really good seri
 
 Full metal Alchemist: Brotherhood also scores quite high in popularity.
 
-I am a bit suprised about Swort Art Online scoring so high in the above list. However it did have a novel plot line, especially in the first half of season one. 
+I am a bit surprised about Sword Art Online scoring so high in the above list. However it did have a novel plot line, especially in the first half of season one. 
 
 Lastly I would expect Code Geass, Steinsgate and One Punch man to be here as well. They were really well rounded series, with really interesting plots.
 
@@ -231,7 +233,7 @@ Doesn't exactly sound riveting, but at least not disturbing. I will spare you th
 
 So even after going through this whole exercise, I still haven't found an anime that my girlfriend will enjoy! I tried selling her on the plot lines of the highest rated anime I found in the previous section, but without much success. At least she did admit that the Death Note plot line sounded dark, but interesting. However I am still looking for something better.
 
-Luckily she gave a me a good starting point when she mentioned that the one anime she has seen and really enjoyed was 'The Red turtle' by Studio Gibli. Even though it is not in this dataset, at least the producer of this anime is in here. Lets see if they made any other highly rated anime.
+Luckily she gave me a good starting point when she mentioned that the one anime she has seen and really enjoyed was 'The Red turtle' by Studio Gibli. Even though it is not in this dataset, at least the producer of this anime is in here. Lets see if they made any other highly rated anime.
 
 ```{r}
 

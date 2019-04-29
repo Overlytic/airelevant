@@ -7,8 +7,8 @@ output: html_document
 
 
 
-<p>As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blogpost. I will be using the R programming language and the excellent series of packages called the tidyverse.</p>
-<p>This week’s tidy tuesday dataset is about anime, and comes from MyAnimeList.net. I find this especially exciting since I have enjoyed quite a bit of anime in my life - much to the dismay of my girlfriend. However I am sure I will be able to find an anime series to win her over - at least to some extent! Hopefully this dataset wil be able to help! At the very least I should be able to see where my favourite series rank.</p>
+<p>As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blog post. I will be using the R programming language and the excellent series of packages called the tidyverse.</p>
+<p>This week’s tidy tuesday dataset is about anime, and comes from MyAnimeList.net. I find this especially exciting since I have enjoyed quite a bit of anime in my life - much to the dismay of my girlfriend. However I am sure I will be able to find an anime series to win her over - at least to some extent! Hopefully this dataset will be able to help! At the very least I should be able to see where my favourite series rank.</p>
 <div id="loading-the-data" class="section level2">
 <h2>Loading the Data</h2>
 <p>The dataset can be found on the <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-04-23">tidy tuesday github account</a>.</p>
@@ -43,7 +43,7 @@ if (!(file.exists(data_path))) {
   tidy_anime_raw &lt;- read_rds(data_path)  
   
 }</code></pre>
-<p>Next I do some basic data cleaning. I prefer the english_title given for each anime, but unfortunately it is not always available. So I create a new title column that uses it when possible.</p>
+<p>Next I do some basic data cleaning. I prefer the <code>english_title</code> given for each anime, but unfortunately it is not always available. So I create a new title column that uses it when possible.</p>
 <pre class="r"><code>tidy_anime &lt;- tidy_anime_raw %&gt;% 
   mutate(title = ifelse(is.na(title_english), name, title_english))</code></pre>
 <p>Now we are ready to start answering some basic questions!</p>
@@ -152,6 +152,7 @@ if (!(file.exists(data_path))) {
 </tr>
 </tbody>
 </table>
+<p><br/><br/></p>
 <p>The anime’s ranks and scores are duplicated for every genre. This is because the dataset is in a long tidy format, with every column representing a variable and every row an observation.</p>
 <p>Since we are only interested in the anime scores at this stage, I will create a simplified dataset that only extracts the columns related to score and popularity and selects the unique rows.</p>
 <pre class="r"><code>anime_scores &lt;- tidy_anime %&gt;% 
@@ -171,7 +172,7 @@ anime_scores %&gt;%
 <p><img src="/post/popular_anime_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>The graph already gives us a good overview of the highest rated anime series. Full metal alchemist: brotherhood is the clear favourite! Funnily enough even Elon Musk’s twitter profile is giving homage to the series, with his profile picture being a picture of the main character.</p>
 <p><img src="/post/popular_anime_files/figure-html/unnamed-chunk-6-1.png" width="192" /></p>
-<p>However some anime have been listed multiple times (e.g. Gintama). This seems to be caused by the different seasons having separate ratings.</p>
+<p>One issue I do see with the graph is that some anime have been listed multiple times (e.g. Gintama). This seems to be caused by the different seasons having separate ratings.</p>
 <p>To identify and link different seasons of anime could become a bit tricky, so we won’t focus on it at this stage.</p>
 </div>
 <div id="which-anime-is-most-popular" class="section level2">
@@ -189,7 +190,7 @@ anime_scores %&gt;%
 <p><img src="/post/popular_anime_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Death Note and Attack on Titan are clear winners, and both were really good series in my opinion.</p>
 <p>Full metal Alchemist: Brotherhood also scores quite high in popularity.</p>
-<p>I am a bit suprised about Swort Art Online scoring so high in the above list. However it did have a novel plot line, especially in the first half of season one.</p>
+<p>I am a bit surprised about Sword Art Online scoring so high in the above list. However it did have a novel plot line, especially in the first half of season one.</p>
 <p>Lastly I would expect Code Geass, Steinsgate and One Punch man to be here as well. They were really well rounded series, with really interesting plots.</p>
 </div>
 <div id="which-popular-anime-also-have-high-ratings" class="section level2">
@@ -242,7 +243,7 @@ anime_scores %&gt;%
 <div id="the-red-turtle" class="section level2">
 <h2>The Red Turtle</h2>
 <p>So even after going through this whole exercise, I still haven’t found an anime that my girlfriend will enjoy! I tried selling her on the plot lines of the highest rated anime I found in the previous section, but without much success. At least she did admit that the Death Note plot line sounded dark, but interesting. However I am still looking for something better.</p>
-<p>Luckily she gave a me a good starting point when she mentioned that the one anime she has seen and really enjoyed was ‘The Red turtle’ by Studio Gibli. Even though it is not in this dataset, at least the producer of this anime is in here. Lets see if they made any other highly rated anime.</p>
+<p>Luckily she gave me a good starting point when she mentioned that the one anime she has seen and really enjoyed was ‘The Red turtle’ by Studio Gibli. Even though it is not in this dataset, at least the producer of this anime is in here. Lets see if they made any other highly rated anime.</p>
 <pre class="r"><code>tidy_anime %&gt;% 
   filter(str_detect(studio, &quot;Studio Ghibli&quot;)) %&gt;% 
   select(-genre, -type, -producers) %&gt;% 
