@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Anime: The good, the bad and the popular - A.I.relevant</title>
+  <meta property="og:title" content="Anime: The good, the bad and the popular" />
+  <meta name="twitter:title" content="Anime: The good, the bad and the popular" />
+  <meta name="description" content="As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blogpost. I will be using the R programming language and the excellent series of packages called the tidyverse.
+This week’s tidy tuesday dataset is about anime, and comes from MyAnimeList.net. I find this especially exciting since I have enjoyed quite a bit of anime in my life - much to the dismay of my girlfriend.">
+  <meta property="og:description" content="As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blogpost. I will be using the R programming language and the excellent series of packages called the tidyverse.
+This week’s tidy tuesday dataset is about anime, and comes from MyAnimeList.net. I find this especially exciting since I have enjoyed quite a bit of anime in my life - much to the dismay of my girlfriend.">
+  <meta name="twitter:description" content="As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blogpost. I will be using the R programming language and the excellent series of packages called the tidyverse. …">
+  <meta name="author" content="Overlytic"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "A.I.relevant",
+    
+    "url": "/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "/post/popular_anime/",
+          "name": "Anime the good, the bad and the popular"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Overlytic"
+  },
+  "headline": "Anime: The good, the bad and the popular",
+  "description" : "As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blogpost. I will be using the R programming language and the excellent series of packages called the tidyverse.
+This week’s tidy tuesday dataset is about anime, and comes from MyAnimeList.net. I find this especially exciting since I have enjoyed quite a bit of anime in my life - much to the dismay of my girlfriend.",
+  "inLanguage" : "en",
+  "wordCount": 1600,
+  "datePublished" : "2019-04-28T00:00:00",
+  "dateModified" : "2019-04-28T00:00:00",
+  "image" : "/img/avatar-icon.png",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "/post/popular_anime/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "/img/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Anime: The good, the bad and the popular" />
+<meta property="og:description" content="As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blogpost. I will be using the R programming language and the excellent series of packages called the tidyverse.
+This week’s tidy tuesday dataset is about anime, and comes from MyAnimeList.net. I find this especially exciting since I have enjoyed quite a bit of anime in my life - much to the dismay of my girlfriend.">
+<meta property="og:image" content="/img/avatar-icon.png" />
+<meta property="og:url" content="/post/popular_anime/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="A.I.relevant" />
+  <meta name="twitter:title" content="Anime: The good, the bad and the popular" />
+  <meta name="twitter:description" content="As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blogpost. I will be using the R programming language and the excellent series of packages called the tidyverse. …">
+  <meta name="twitter:image" content="/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@Overlytic" />
+  <meta name="twitter:creator" content="@Overlytic" />
+  <link href='/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="/img/avatar-icon.png" />
+  <meta name="twitter:image" content="/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@Overlytic" />
+  <meta name="twitter:creator" content="@Overlytic" />
+  <meta property="og:url" content="/post/popular_anime/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="A.I.relevant" />
+
+  <meta name="generator" content="Hugo 0.52" />
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="A.I.relevant"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="/css/highlight.min.css" /><link rel="stylesheet" href="/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">A.I.relevant</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent">Samples</a>
+              <div class="navlinks-children">
+                
+                  <a href="/post/2017-03-07-bigimg-sample">Big Image Sample</a>
+                
+                  <a href="/post/2017-03-05-math-sample">Math Sample</a>
+                
+                  <a href="/post/2016-03-08-code-sample">Code Sample</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="A.I.relevant" href="/">
+            <img class="avatar-img" src="/img/avatar-icon.png" alt="A.I.relevant" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Anime: The good, the bad and the popular</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on April 28, 2019
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;8&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1600&nbsp;words
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Overlytic
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+
+<p>As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blogpost. I will be using the R programming language and the excellent series of packages called the tidyverse.</p>
+<p>This week’s tidy tuesday dataset is about anime, and comes from MyAnimeList.net. I find this especially exciting since I have enjoyed quite a bit of anime in my life - much to the dismay of my girlfriend. However I am sure I will be able to find an anime series to win her over - at least to some extent! Hopefully this dataset wil be able to help! At the very least I should be able to see where my favourite series rank.</p>
+<div id="loading-the-data" class="section level2">
+<h2>Loading the Data</h2>
+<p>The dataset can be found on the <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-04-23">tidy tuesday github account</a>.</p>
+<p>Let’s begin by loading the tidyverse packages and doing some basic setup.</p>
+<pre class="r"><code># setup
+
+library(tidyverse)       # loads all the tidyverse packages
+library(here)            # helps with path management
+
+theme_set(theme_light()) # nice white and minimal theme for plots</code></pre>
+<p>Now we can download the dataset from the mentioned github account.</p>
+<p>If you read their readme - you will find some handy instructions to download and import the dataset directly into R. However I am going to modify these instructions a bit since I am concerned about the dataset’s size. The below code will ensure the dataset is only downloaded once, instead of downloading it every time you rerun the analysis.</p>
+<pre class="r"><code># Data Paths
+
+data_url &lt;- &quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-04-23/tidy_anime.csv&quot;
+
+data_path &lt;- here(&quot;content/post/data&quot;, &quot;tidy_anime.rds&quot;)
+
+# Check if Data has already been downloaded
+
+if (!(file.exists(data_path))) {
+  
+  # Download Data
+  tidy_anime_raw &lt;- readr::read_csv(data_url, col_types = cols())
+  
+  # Save Data
+  write_rds(tidy_anime_raw, data_path)
+
+} else {
+  
+  # Read data since already downloaded
+  tidy_anime_raw &lt;- read_rds(data_path)  
+  
+}</code></pre>
+<p>Next I do some basic data cleaning. I prefer the english_title given for each anime, but unfortunately it is not always available. So I create a new title column that uses it when possible.</p>
+<pre class="r"><code>tidy_anime &lt;- tidy_anime_raw %&gt;% 
+  mutate(title = ifelse(is.na(title_english), name, title_english))</code></pre>
+<p>Now we are ready to start answering some basic questions!</p>
+</div>
+<div id="which-anime-has-the-highest-ratings" class="section level2">
+<h2>Which anime has the highest ratings?</h2>
+<p>I would like to know which anime has the highest scores on the website.</p>
+<p>The <code>rank</code> column in the dataset can be used for this, since it ranks the anime according to the average score on the website. Other columns that will be useful are the <code>score</code> column which gives the average community score from 1 to 10, and the <code>scored_by</code> column which shows the number of users that have scored the anime.</p>
+<p>First let’s look of an example of a well known anime like ‘Naruto’.</p>
+<pre class="r"><code>tidy_anime %&gt;% 
+  filter(title_english == &quot;Naruto&quot;) %&gt;% 
+  select(animeID, title, rank, score, scored_by, genre) %&gt;% 
+  slice(1:10) %&gt;% 
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">animeID</th>
+<th align="left">title</th>
+<th align="right">rank</th>
+<th align="right">score</th>
+<th align="right">scored_by</th>
+<th align="left">genre</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">20</td>
+<td align="left">Naruto</td>
+<td align="right">705</td>
+<td align="right">7.9</td>
+<td align="right">716412</td>
+<td align="left">Action</td>
+</tr>
+<tr class="even">
+<td align="right">20</td>
+<td align="left">Naruto</td>
+<td align="right">705</td>
+<td align="right">7.9</td>
+<td align="right">716412</td>
+<td align="left">Adventure</td>
+</tr>
+<tr class="odd">
+<td align="right">20</td>
+<td align="left">Naruto</td>
+<td align="right">705</td>
+<td align="right">7.9</td>
+<td align="right">716412</td>
+<td align="left">Comedy</td>
+</tr>
+<tr class="even">
+<td align="right">20</td>
+<td align="left">Naruto</td>
+<td align="right">705</td>
+<td align="right">7.9</td>
+<td align="right">716412</td>
+<td align="left">Super Power</td>
+</tr>
+<tr class="odd">
+<td align="right">20</td>
+<td align="left">Naruto</td>
+<td align="right">705</td>
+<td align="right">7.9</td>
+<td align="right">716412</td>
+<td align="left">Martial Arts</td>
+</tr>
+<tr class="even">
+<td align="right">20</td>
+<td align="left">Naruto</td>
+<td align="right">705</td>
+<td align="right">7.9</td>
+<td align="right">716412</td>
+<td align="left">Shounen</td>
+</tr>
+<tr class="odd">
+<td align="right">20</td>
+<td align="left">Naruto</td>
+<td align="right">705</td>
+<td align="right">7.9</td>
+<td align="right">716412</td>
+<td align="left">Action</td>
+</tr>
+<tr class="even">
+<td align="right">20</td>
+<td align="left">Naruto</td>
+<td align="right">705</td>
+<td align="right">7.9</td>
+<td align="right">716412</td>
+<td align="left">Adventure</td>
+</tr>
+<tr class="odd">
+<td align="right">20</td>
+<td align="left">Naruto</td>
+<td align="right">705</td>
+<td align="right">7.9</td>
+<td align="right">716412</td>
+<td align="left">Comedy</td>
+</tr>
+<tr class="even">
+<td align="right">20</td>
+<td align="left">Naruto</td>
+<td align="right">705</td>
+<td align="right">7.9</td>
+<td align="right">716412</td>
+<td align="left">Super Power</td>
+</tr>
+</tbody>
+</table>
+<p>The anime’s ranks and scores are duplicated for every genre. This is because the dataset is in a long tidy format, with every column representing a variable and every row an observation.</p>
+<p>Since we are only interested in the anime scores at this stage, I will create a simplified dataset that only extracts the columns related to score and popularity and selects the unique rows.</p>
+<pre class="r"><code>anime_scores &lt;- tidy_anime %&gt;% 
+  select(animeID, title, popularity, rank, score, scored_by, favorites, members) %&gt;% 
+  distinct()
+  
+anime_scores %&gt;% 
+  arrange(rank) %&gt;% 
+  slice(1:20) %&gt;% 
+  ggplot(aes(reorder(title, score), score, colour = title, size = log(scored_by))) + 
+  geom_point(show.legend = F) + 
+  coord_flip() + 
+  labs(title = &quot;Top 20 Anime By Score on MyAnimeList.net&quot;,
+       subtitle = &quot;Size of dots indicate the credibility of an anime score&quot;,
+       x = &quot;&quot;,
+       y = &quot;Score (1 To 10)&quot;)</code></pre>
+<p><img src="/post/popular_anime_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>The graph already gives us a good overview of the highest rated anime series. Full metal alchemist: brotherhood is the clear favourite! Funnily enough even Elon Musk’s twitter profile is giving homage to the series, with his profile picture being a picture of the main character.</p>
+<p><img src="/post/popular_anime_files/figure-html/unnamed-chunk-6-1.png" width="192" /></p>
+<p>However some anime have been listed multiple times (e.g. Gintama). This seems to be caused by the different seasons having separate ratings.</p>
+<p>To identify and link different seasons of anime could become a bit tricky, so we won’t focus on it at this stage.</p>
+</div>
+<div id="which-anime-is-most-popular" class="section level2">
+<h2>Which anime is most popular?</h2>
+<p>First I will use the <code>popularity</code> column to identify the 20 most popular anime.</p>
+<pre class="r"><code>anime_scores %&gt;%
+  arrange(popularity) %&gt;%
+  slice(1:20) %&gt;%
+  ggplot(aes(reorder(title, -popularity), members, fill = title)) +
+  geom_col(show.legend = F) +
+  coord_flip() +
+  labs(title = &quot;Top 20 Anime By Popularity on MyAnimeList.net&quot;, 
+       x = &quot;&quot;, 
+       y = &quot;Number of Members with anime in their list&quot;)</code></pre>
+<p><img src="/post/popular_anime_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Death Note and Attack on Titan are clear winners, and both were really good series in my opinion.</p>
+<p>Full metal Alchemist: Brotherhood also scores quite high in popularity.</p>
+<p>I am a bit suprised about Swort Art Online scoring so high in the above list. However it did have a novel plot line, especially in the first half of season one.</p>
+<p>Lastly I would expect Code Geass, Steinsgate and One Punch man to be here as well. They were really well rounded series, with really interesting plots.</p>
+</div>
+<div id="which-popular-anime-also-have-high-ratings" class="section level2">
+<h2>Which popular anime also have high ratings?</h2>
+<p>This is an attempt to show both popularity and score on one graph. Instead of just focusing on the top 20 anime, lets expand it to top 50.</p>
+<pre class="r"><code>anime_scores %&gt;% 
+  filter(popularity &lt;= 50) %&gt;%
+  mutate(title = str_replace(title, &quot;Code Geass: Lelouch of the Rebellion&quot;, &quot;Code Geass&quot;)) %&gt;%
+  ggplot(aes(score, scored_by, colour = title)) + 
+  geom_point() + 
+  geom_text(aes(label = title, ), check_overlap = T, show.legend = F, size = 3, hjust = 1) + 
+  xlim(c(6, 10)) +
+  labs(title = &quot;Which popular anime also score high?&quot;, 
+       subtitle = &quot;Top 50 anime shown based on popularity&quot;,
+       y = &quot;Number of users that scored&quot;,
+       x = &quot;Score (1-10)&quot;) + 
+  theme(legend.position = &#39;none&#39;)</code></pre>
+<p><img src="/post/popular_anime_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>This gives a nice high level view of the popularity of the anime compared to the quality (or score).</p>
+<p>We can also see the three Shonen jump series (Naruto, One Piece and Bleach), all with a score of around 8, with Naruto clearly being the most popular of the three.</p>
+<p>It is also quite clear that Death Note, Attack on Titan and Sword Art Online has much higher popularity than the rest.</p>
+<p>Overall Full Metal Alchemist and One Punch man seem to strike a sweet spot in terms of popularity and quality. Death Note and Attack on Titan are also not far behind them.</p>
+</div>
+<div id="the-bad" class="section level2">
+<h2>The bad</h2>
+<p>In the above sections we were only looking at the well known and highly rated anime. It would be interesting to look at the other side of the distribution. Particularly I would like to see if there are any of the names I recognise.</p>
+<p>Maybe <a href="https://www.youtube.com/watch?v=0-sirff2Avk">Neo Yokio</a> from Netflix will be on here.</p>
+<pre class="r"><code>anime_scores %&gt;% 
+  filter(members &gt;= 100) %&gt;% 
+  top_n(-20, score) %&gt;% 
+  ggplot(aes(reorder(title, -score), score, fill = title)) +
+  geom_col() +
+  coord_flip() +
+  labs(title = &quot;Which anime was really bad?&quot;, 
+       subtitle = &quot;Worst 20 anime with at least 100 scores&quot;,
+       y = &quot;Score (1-10)&quot;,
+       x = &quot;&quot;) + 
+  expand_limits(x = c(1,5)) +
+  theme(legend.position = &#39;none&#39;)</code></pre>
+<p><img src="/post/popular_anime_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Unfortunately (or perhaps fortunately) I don’t recognise any of the anime names. Also I checked and Neo Yokio is not in the dataset at all. However I must say that there are a few names here that sound dodgy right off the bat. Examples include: Striking Daughter, Meat or Die, Fetish Doll and Shitcom.</p>
+<p>Here is the synopsis of Striking Daughter:</p>
+<pre class="r"><code>tidy_anime %&gt;% 
+  filter(str_detect(title, c(&quot;Striking Daughter&quot;))) %&gt;% 
+  pull(synopsis) %&gt;% 
+  .[[1]]</code></pre>
+<pre><code>## [1] &quot;Sayuri is a curious creature who lives on her husband with her equally surreal mother and father. With an antenna-like whip protruding from her head, she is a striking daughter, and her long-awaited time to strike has come. Her family and friends watch eagerly as Sayuri carries out this bizarre ceremony. [Written by MAL Rewrite]&quot;</code></pre>
+<p>Doesn’t exactly sound riveting, but at least not disturbing. I will spare you the more disturbing descriptions.</p>
+</div>
+<div id="the-red-turtle" class="section level2">
+<h2>The Red Turtle</h2>
+<p>So even after going through this whole exercise, I still haven’t found an anime that my girlfriend will enjoy! I tried selling her on the plot lines of the highest rated anime I found in the previous section, but without much success. At least she did admit that the Death Note plot line sounded dark, but interesting. However I am still looking for something better.</p>
+<p>Luckily she gave a me a good starting point when she mentioned that the one anime she has seen and really enjoyed was ‘The Red turtle’ by Studio Gibli. Even though it is not in this dataset, at least the producer of this anime is in here. Lets see if they made any other highly rated anime.</p>
+<pre class="r"><code>tidy_anime %&gt;% 
+  filter(str_detect(studio, &quot;Studio Ghibli&quot;)) %&gt;% 
+  select(-genre, -type, -producers) %&gt;% 
+  distinct() %&gt;% 
+  filter(score &gt; 8) %&gt;% 
+  ggplot(aes(reorder(title, score), score, colour = title, size = log(scored_by))) + 
+  geom_point(show.legend = F) + 
+  coord_flip() + 
+  labs(title = &quot;Highest Scored Anime From Studio Ghibli&quot;,
+       subtitle = &quot;Size of dots indicate the credibility of an anime score&quot;,
+       x = &quot;&quot;,
+       y = &quot;Score (1 To 10)&quot;)</code></pre>
+<p><img src="/post/popular_anime_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>I looked at the trailers of some of these anime, and ‘The Tale of Princess Kaguya’ looks like the best candidate so far. This is despite the fact that its score has less credibility than the others in the above plot.</p>
+<p>If she doesn’t like this, then at least we can watch ‘The Red turtle’ together, unless anybody has any other suggestions!</p>
+</div>
+
+
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=%2fpost%2fpopular_anime%2f&amp;text=Anime%3a%20The%20good%2c%20the%20bad%20and%20the%20popular&amp;via=Overlytic" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//plus.google.com/share?url=%2fpost%2fpopular_anime%2f" target="_blank" title="Share on Google Plus">
+          <i class="fab fa-google-plus"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=%2fpost%2fpopular_anime%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=%2fpost%2fpopular_anime%2f&amp;title=Anime%3a%20The%20good%2c%20the%20bad%20and%20the%20popular" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=%2fpost%2fpopular_anime%2f&amp;title=Anime%3a%20The%20good%2c%20the%20bad%20and%20the%20popular" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=%2fpost%2fpopular_anime%2f&amp;title=Anime%3a%20The%20good%2c%20the%20bad%20and%20the%20popular" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=%2fpost%2fpopular_anime%2f&amp;description=Anime%3a%20The%20good%2c%20the%20bad%20and%20the%20popular" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+              </div>
+            </section>
+        
+
+        
+          
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="/post/elephants_dont_fly/" data-toggle="tooltip" data-placement="top" title="Elephants don&#39;t fly">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:surfsafetynet@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/Overlytic" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Overlytic
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2019
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="/">A.I.relevant</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.52</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="/js/main.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
+
