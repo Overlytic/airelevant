@@ -1,5 +1,4 @@
 baseurl = "https://airelevant.netlify.com/"
-#baseurl = "https://airelevevant.com"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
 title = "A.I.relevant"
@@ -11,7 +10,7 @@ pygmentsCodeFences = true
 pygmentsCodefencesGuessSyntax = true
 #pygmentsUseClassic = true
 #pygmentOptions = "linenos=inline"
-#disqusShortname = "XXX"
+disqusShortname = "airelevant-netlify-com"
 #googleAnalytics = "XXX"
 
 [Params]
