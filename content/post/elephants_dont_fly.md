@@ -2,6 +2,7 @@
 title: Elephants don't fly
 author: Overlytic
 date: 2019-04-23
+tags: ["quotes", "motivational", "planning"]
 ---
 
 Just some motivational content that I need to externalise. 

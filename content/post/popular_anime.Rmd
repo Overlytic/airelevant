@@ -3,6 +3,7 @@ title: "Anime: The good, the bad and the popular"
 author: "Overlytic"
 date: 2019-04-28
 output: html_document
+tags: ["rstats", "tidytuesday","anime"]
 ---
 
 ```{r setup, include=FALSE}

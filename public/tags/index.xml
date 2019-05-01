@@ -7,9 +7,64 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>surfsafetynet@gmail.com (Overlytic)</managingEditor>
     <webMaster>surfsafetynet@gmail.com (Overlytic)</webMaster>
+    <lastBuildDate>Sun, 28 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Anime</title>
+      <link>/tags/anime/</link>
+      <pubDate>Sun, 28 Apr 2019 00:00:00 +0000</pubDate>
+      <author>surfsafetynet@gmail.com (Overlytic)</author>
+      <guid>/tags/anime/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Motivational</title>
+      <link>/tags/motivational/</link>
+      <pubDate>Tue, 23 Apr 2019 00:00:00 +0000</pubDate>
+      <author>surfsafetynet@gmail.com (Overlytic)</author>
+      <guid>/tags/motivational/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Planning</title>
+      <link>/tags/planning/</link>
+      <pubDate>Tue, 23 Apr 2019 00:00:00 +0000</pubDate>
+      <author>surfsafetynet@gmail.com (Overlytic)</author>
+      <guid>/tags/planning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Quotes</title>
+      <link>/tags/quotes/</link>
+      <pubDate>Tue, 23 Apr 2019 00:00:00 +0000</pubDate>
+      <author>surfsafetynet@gmail.com (Overlytic)</author>
+      <guid>/tags/quotes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rstats</title>
+      <link>/tags/rstats/</link>
+      <pubDate>Sun, 28 Apr 2019 00:00:00 +0000</pubDate>
+      <author>surfsafetynet@gmail.com (Overlytic)</author>
+      <guid>/tags/rstats/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tidytuesday</title>
+      <link>/tags/tidytuesday/</link>
+      <pubDate>Sun, 28 Apr 2019 00:00:00 +0000</pubDate>
+      <author>surfsafetynet@gmail.com (Overlytic)</author>
+      <guid>/tags/tidytuesday/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>
