@@ -1,0 +1,94 @@
+---
+title: "Bird Collisions"
+author: "Overlytic"
+date: 2019-04-30
+output: html_document
+---
+
+
+
+<p>Another tidy tuesday. Bird collissions.</p>
+<p>Atleast I</p>
+<pre class="r"><code>bird_collisions &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-04-30/bird_collisions.csv&quot;, col_types = cols())
+
+mp_light &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-04-30/mp_light.csv&quot;, col_types = cols())</code></pre>
+<div id="eda" class="section level2">
+<h2>EDA</h2>
+<pre class="r"><code>bird_collisions %&gt;% 
+  count(genus, species, locality, family, flight_call, habitat, stratum, sort = T)</code></pre>
+<pre><code>## Warning: package &#39;bindrcpp&#39; was built under R version 3.5.1</code></pre>
+<pre><code>## # A tibble: 171 x 8
+##    genus       species  locality family  flight_call habitat stratum     n
+##    &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;
+##  1 Zonotrichia albicol~ CHI      Passer~ Yes         Forest  Lower    6508
+##  2 Melospiza   melodia  MP       Passer~ Yes         Edge    Lower    4802
+##  3 Junco       hyemalis MP       Passer~ Yes         Edge    Lower    4284
+##  4 Melospiza   georgia~ MP       Passer~ Yes         Open    Lower    4045
+##  5 Zonotrichia albicol~ MP       Passer~ Yes         Forest  Lower    3625
+##  6 Seiurus     aurocap~ CHI      Paruli~ Yes         Forest  Lower    3055
+##  7 Certhia     america~ CHI      Certhi~ Yes         Forest  Upper    2405
+##  8 Junco       hyemalis CHI      Passer~ Yes         Edge    Lower    2019
+##  9 Catharus    guttatus CHI      Turdid~ Yes         Forest  Lower    1941
+## 10 Catharus    guttatus MP       Turdid~ Yes         Forest  Lower    1788
+## # ... with 161 more rows</code></pre>
+<pre class="r"><code>bird_collisions %&gt;% count(locality) %&gt;% mutate(perc = n / sum(n))</code></pre>
+<pre><code>## # A tibble: 2 x 3
+##   locality     n  perc
+##   &lt;chr&gt;    &lt;int&gt; &lt;dbl&gt;
+## 1 CHI      33456 0.480
+## 2 MP       36239 0.520</code></pre>
+<pre class="r"><code>mp_light</code></pre>
+<pre><code>## # A tibble: 3,067 x 2
+##    date       light_score
+##    &lt;date&gt;           &lt;int&gt;
+##  1 2000-03-06           3
+##  2 2000-03-08          15
+##  3 2000-03-10           3
+##  4 2000-03-31           3
+##  5 2000-04-02          17
+##  6 2000-04-14           4
+##  7 2000-04-15           4
+##  8 2000-04-30          14
+##  9 2000-05-01          14
+## 10 2000-05-03           3
+## # ... with 3,057 more rows</code></pre>
+<pre class="r"><code>MP_data &lt;- bird_collisions %&gt;% 
+  filter(locality == &quot;MP&quot;) %&gt;% 
+  count(date, sort = T) %&gt;% 
+  rename(collision_count = n) %&gt;% 
+  inner_join(mp_light, by = &quot;date&quot;) %&gt;% 
+  arrange(date)
+  
+MP_data %&gt;% 
+  ggplot(aes(light_score, collision_count)) + 
+  geom_point()</code></pre>
+<p><img src="/post/bird_collisions_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="did-number-of-collissions-increase-over-time" class="section level2">
+<h2>Did number of collissions increase over time?</h2>
+<pre class="r"><code>bird_collisions %&gt;% 
+  mutate(locality = case_when(locality == &quot;MP&quot; ~ &quot;McCormick Place&quot;,
+                              locality == &quot;CHI&quot; ~ &quot;Greater Chicago Area&quot;)) %&gt;% 
+  count(date, locality, sort = T) %&gt;% 
+  rename(collission_count = n) %&gt;% 
+  ggplot(aes(date, collission_count)) + 
+  geom_line() + 
+  facet_wrap(~ locality) +
+  labs(title = &quot;Recorded Bird Collissions per day&quot;,
+       x = &quot;&quot;,
+       y = &quot;# of Bird Collission&quot;)</code></pre>
+<p><img src="/post/bird_collisions_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>bird_collisions %&gt;% 
+  mutate(locality = case_when(locality == &quot;MP&quot; ~ &quot;McCormick Place&quot;,
+                              locality == &quot;CHI&quot; ~ &quot;Greater Chicago Area&quot;)) %&gt;% 
+  count(date, locality, sort = T) %&gt;% 
+  rename(collission_count = n) %&gt;% 
+  ggplot(aes(date, collission_count)) + 
+  geom_line() + 
+  geom_smooth(method = &quot;lm&quot;) +
+  facet_wrap(~ locality) +
+  labs(title = &quot;Recorded Bird Collissions per day&quot;,
+       x = &quot;&quot;,
+       y = &quot;# of Bird Collission&quot;)</code></pre>
+<p><img src="/post/bird_collisions_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>

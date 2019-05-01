@@ -1,0 +1,105 @@
+---
+title: "Bird Collisions"
+author: "Overlytic"
+date: 2019-04-30
+output: html_document
+---
+
+Another tidy tuesday. Bird collissions.
+
+Atleast I 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+
+```{r}
+
+bird_collisions <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-04-30/bird_collisions.csv", col_types = cols())
+
+mp_light <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-04-30/mp_light.csv", col_types = cols())
+
+```
+
+## EDA
+
+```{r}
+
+bird_collisions %>% 
+  count(genus, species, locality, family, flight_call, habitat, stratum, sort = T)
+
+```
+
+```{r}
+
+bird_collisions %>% count(locality) %>% mutate(perc = n / sum(n))
+
+```
+
+
+
+```{r}
+
+mp_light
+
+```
+
+```{r}
+
+MP_data <- bird_collisions %>% 
+  filter(locality == "MP") %>% 
+  count(date, sort = T) %>% 
+  rename(collision_count = n) %>% 
+  inner_join(mp_light, by = "date") %>% 
+  arrange(date)
+  
+MP_data %>% 
+  ggplot(aes(light_score, collision_count)) + 
+  geom_point()
+```
+
+## Did number of collissions increase over time?
+
+```{r}
+
+bird_collisions %>% 
+  mutate(locality = case_when(locality == "MP" ~ "McCormick Place",
+                              locality == "CHI" ~ "Greater Chicago Area")) %>% 
+  count(date, locality, sort = T) %>% 
+  rename(collission_count = n) %>% 
+  ggplot(aes(date, collission_count)) + 
+  geom_line() + 
+  facet_wrap(~ locality) +
+  labs(title = "Recorded Bird Collissions per day",
+       x = "",
+       y = "# of Bird Collission")
+
+```
+
+```{r}
+
+bird_collisions %>% 
+  mutate(locality = case_when(locality == "MP" ~ "McCormick Place",
+                              locality == "CHI" ~ "Greater Chicago Area")) %>% 
+  count(date, locality, sort = T) %>% 
+  rename(collission_count = n) %>% 
+  ggplot(aes(date, collission_count)) + 
+  geom_line() + 
+  geom_smooth(method = "lm") +
+  facet_wrap(~ locality) +
+  labs(title = "Recorded Bird Collissions per day",
+       x = "",
+       y = "# of Bird Collission")
+
+
+```
+
+```{r}
+
+
+
+```
+
