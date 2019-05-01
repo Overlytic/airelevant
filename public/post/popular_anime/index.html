@@ -70,7 +70,7 @@ This week’s tidy tuesday dataset is about anime, and comes from MyAnimeList.ne
   "datePublished" : "2019-04-28T00:00:00",
   "dateModified" : "2019-04-28T00:00:00",
   "image" : "/img/avatar-icon.png",
-  "keywords" : [ "" ],
+  "keywords" : [ "rstats, tidytuesday, anime" ],
   "mainEntityOfPage" : "/post/popular_anime/",
   "publisher" : {
     "@type": "Organization",
@@ -118,6 +118,17 @@ This week’s tidy tuesday dataset is about anime, and comes from MyAnimeList.ne
 
 
 
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-139404245-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
   </head>
   <body>
@@ -139,21 +150,6 @@ This week’s tidy tuesday dataset is about anime, and comes from MyAnimeList.ne
           
             <li>
               <a title="Blog" href="/">Blog</a>
-            </li>
-          
-        
-          
-            <li class="navlinks-container">
-              <a class="navlinks-parent">Samples</a>
-              <div class="navlinks-children">
-                
-                  <a href="/post/2017-03-07-bigimg-sample">Big Image Sample</a>
-                
-                  <a href="/post/2017-03-05-math-sample">Math Sample</a>
-                
-                  <a href="/post/2016-03-08-code-sample">Code Sample</a>
-                
-              </div>
             </li>
           
         
@@ -555,6 +551,16 @@ anime_scores %&gt;%
 
 
         
+          <div class="blog-tags">
+            
+              <a href="//tags/rstats/">rstats</a>&nbsp;
+            
+              <a href="//tags/tidytuesday/">tidytuesday</a>&nbsp;
+            
+              <a href="//tags/anime/">anime</a>&nbsp;
+            
+          </div>
+        
 
         
             <hr/>
@@ -639,6 +645,20 @@ anime_scores %&gt;%
 
       
         
+          
+          <div class="disqus-comments">                  
+            <button id="show-comments" class="btn btn-default" type="button">Show <span class="disqus-comment-count" data-disqus-url="post/popular_anime">comments</span></button>
+            <div id="disqus_thread"></div>
+
+            <script type="text/javascript">
+              var disqus_config = function () {
+              this.page.url = 'post\/popular_anime';
+            };
+
+          </script>
+          </div>
+          
+        
         
       
 
@@ -721,6 +741,28 @@ anime_scores %&gt;%
 
 
 
+
+
+
+<script type="text/javascript">
+$(function(){
+  $('#show-comments').on('click', function(){
+    var disqus_shortname = 'airelevant-netlify-com';
+      
+    (function() {
+      var disqus = document.createElement('script'); 
+      disqus.type = 'text/javascript'; 
+      disqus.async = true;
+      disqus.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(disqus);
+    })();
+      
+    $(this).hide(); 
+    });
+  });
+      
+</script>
+<script id="dsq-count-scr" src="//airelevant-netlify-com.disqus.com/count.js" async></script>
 
 
 

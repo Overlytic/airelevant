@@ -2,6 +2,7 @@
 title: Hello World
 author: Overlytic
 date: 2019-03-10
+tags: ["planning"]
 ---
 
 Welcome to my irrelevant blog! This is the first step on a quest to master the complicated twists and turns of the machine learning world.  As the blog's slogan suggests, the goal is to learn and to keep things fun. To achieve this I will pick the most absurd and light-hearted projects I can think of!

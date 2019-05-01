@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Quotes on A.I.relevant</title>
+    <link>/tags/quotes/</link>
+    <description>Recent content in Quotes on A.I.relevant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>surfsafetynet@gmail.com (Overlytic)</managingEditor>
+    <webMaster>surfsafetynet@gmail.com (Overlytic)</webMaster>
+    <lastBuildDate>Tue, 23 Apr 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/quotes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Elephants don&#39;t fly</title>
+      <link>/post/elephants_dont_fly/</link>
+      <pubDate>Tue, 23 Apr 2019 00:00:00 +0000</pubDate>
+      <author>surfsafetynet@gmail.com (Overlytic)</author>
+      <guid>/post/elephants_dont_fly/</guid>
+      <description>Just some motivational content that I need to externalise.
+Looking at the blog&amp;rsquo;s logo, the image of Dumbo is supposed to come to mind. Even though you don&amp;rsquo;t generally explain a rather obvious logo, I think it is the easiest way to lead into the lesson I am trying to learn.
+To state it simply, learning to do proper data analysis and machine learning is hard. But what I am realising more and more, is that thinking about learning it is even harder.</description>
+    </item>
+    
+  </channel>
+</rss>

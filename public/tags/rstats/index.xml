@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rstats on A.I.relevant</title>
+    <link>/tags/rstats/</link>
+    <description>Recent content in Rstats on A.I.relevant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>surfsafetynet@gmail.com (Overlytic)</managingEditor>
+    <webMaster>surfsafetynet@gmail.com (Overlytic)</webMaster>
+    <lastBuildDate>Sun, 28 Apr 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/rstats/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Anime: The good, the bad and the popular</title>
+      <link>/post/popular_anime/</link>
+      <pubDate>Sun, 28 Apr 2019 00:00:00 +0000</pubDate>
+      <author>surfsafetynet@gmail.com (Overlytic)</author>
+      <guid>/post/popular_anime/</guid>
+      <description>As indicated in my previous post, I am going to analyse a tidy tuesday dataset for this blog post. I will be using the R programming language and the excellent series of packages called the tidyverse.
+This week’s tidy tuesday dataset is about anime, and comes from MyAnimeList.net. I find this especially exciting since I have enjoyed quite a bit of anime in my life - much to the dismay of my girlfriend.</description>
+    </item>
+    
+  </channel>
+</rss>

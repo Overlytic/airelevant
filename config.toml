@@ -1,5 +1,4 @@
 baseurl = "https://airelevant.netlify.com/"
-#baseurl = "https://airelevevant.com"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
 title = "A.I.relevant"
@@ -11,8 +10,8 @@ pygmentsCodeFences = true
 pygmentsCodefencesGuessSyntax = true
 #pygmentsUseClassic = true
 #pygmentOptions = "linenos=inline"
-#disqusShortname = "XXX"
-#googleAnalytics = "XXX"
+disqusShortname = "airelevant-netlify-com"
+googleAnalytics = "UA-139404245-1"
 
 [Params]
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
@@ -77,29 +76,6 @@ twitter = "Overlytic"
 [[menu.main]]
     name = "About"
     url = "page/about/"
-    weight = 3
-
-[[menu.main]]
-    identifier = "samples"
-    name = "Samples"
-    weight = 2
-
-[[menu.main]]
-    parent = "samples"
-    name = "Big Image Sample"
-    url = "post/2017-03-07-bigimg-sample"
-    weight = 1
-
-[[menu.main]]
-    parent = "samples"
-    name = "Math Sample"
-    url = "post/2017-03-05-math-sample"
-    weight = 2
-
-[[menu.main]]
-    parent = "samples"
-    name = "Code Sample"
-    url = "post/2016-03-08-code-sample"
     weight = 3
 
 [[menu.main]]
